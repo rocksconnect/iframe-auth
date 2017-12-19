@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <script>
+        const authUrlDomain = 'http://localhost:4000';
+        window.onload = function() {
+            window.parent.postMessage("Information from child window", authUrlDomain);
+        };
+
+        function reciveAuthenticationData(response) {
+            if (!response.data.status) {
+                window.parent.location = authUrlDomain;
+            }
+        }
+        if (window.addEventListener) {
+            window.addEventListener("message", reciveAuthenticationData, false);
+        } else {
+            window.attachEvent("onmessage", reciveAuthenticationData);
+        }
+    </script>
+</head>
+<body>
+    <form name="testform" method="get" action="">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" name="phone"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" name="submit" value="Submit"></td>
+            </tr>
+        </table>
+
+    </form>
+</body>
+</html>
